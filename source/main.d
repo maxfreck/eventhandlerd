@@ -35,7 +35,7 @@ static int eventhandler_message(uint id, uintptr_t ctx, uint p1, uint p2) {
 		printf("eventhandlerd: DB_EV_CONFIGCHANGED\n");
 		break;
 	default:
-		printf("eventhandlerd: Unknown event 0x%X\n");
+		printf("eventhandlerd: Unknown event 0x%X\n", id);
 		break;
 	}
 
