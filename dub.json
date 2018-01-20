@@ -1,0 +1,12 @@
+{
+	"name" : "eventhandlerd",
+	"description" : "Simple event handler plugin for DeaDBeeF audio player",
+	"dependencies" : {
+		"deadbeef": "~>1.9.0"
+	},
+
+	"dflags" : ["-betterC", "-shared"],
+	"lflags": ["-s"],
+
+	"targetName": "eventhandlerd.so"
+}
