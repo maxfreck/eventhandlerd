@@ -1,7 +1,7 @@
 module main;
 
 import core.stdc.stdint: uintptr_t;
-import core.stdc.stdio: printf;
+import core.sys.posix.syslog;
 import deadbeef.deadbeef;
 
 extern (C):
@@ -12,33 +12,36 @@ nothrow:
 static DB_functions_t* deadBeef;
 
 static int eventhandler_message(uint id, uintptr_t ctx, uint p1, uint p2) {
+	openlog("ddb eventhandlerd", LOG_PID|LOG_CONS, LOG_USER);
+
 	switch (id) {
 	case DB_EV_SEEKED:
-		printf("eventhandlerd: DB_EV_SEEKED\n");
+		syslog (LOG_INFO, "DB_EV_SEEKED\n");
 		break;
 	case DB_EV_TRACKINFOCHANGED:
-		printf("eventhandlerd: DB_EV_TRACKINFOCHANGED\n");
+		syslog (LOG_INFO, "DB_EV_TRACKINFOCHANGED\n");
 		break;
 	case DB_EV_SONGSTARTED:
-		printf("eventhandlerd: DB_EV_SONGSTARTED\n");
+		syslog (LOG_INFO, "DB_EV_SONGSTARTED\n");
 		break;
 	case DB_EV_PAUSED:
-		printf("eventhandlerd: DB_EV_PAUSED\n");
+		syslog (LOG_INFO, "DB_EV_PAUSED\n");
 		break;
 	case DB_EV_STOP:
-		printf("eventhandlerd: DB_EV_STOP\n");
+		syslog (LOG_INFO, "DB_EV_STOP\n");
 		break;
 	case DB_EV_VOLUMECHANGED:
-		printf("eventhandlerd: DB_EV_VOLUMECHANGED\n");
+		syslog (LOG_INFO, "DB_EV_VOLUMECHANGED\n");
 		break;
 	case DB_EV_CONFIGCHANGED:
-		printf("eventhandlerd: DB_EV_CONFIGCHANGED\n");
+		syslog (LOG_INFO, "DB_EV_CONFIGCHANGED\n");
 		break;
 	default:
-		printf("eventhandlerd: Unknown event 0x%X\n", id);
+		syslog (LOG_INFO, "Unknown event #%u\n", id);
 		break;
 	}
 
+	closelog();
 	return 0;
 }
 
